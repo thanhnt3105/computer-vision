@@ -1,13 +1,14 @@
-# Real-Time Face Recognition
+<!-- # Real-Time Face Recognition
 
    <p align="center">
    <img src="./assets/face-recognition.gif" alt="Face Recognition" />
    <br>
    <em>Face Recognition</em>
-   </p>
+   </p> -->
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Architecture](#architecture)
 - [How to use](#how-to-use)
   - [Create Environment and Install Packages](#create-environment-and-install-packages)
