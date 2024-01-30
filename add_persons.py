@@ -37,11 +37,12 @@ def get_feature(face_image):
         numpy.ndarray: Extracted facial features.
     """
     # Define a series of image preprocessing steps
+    # Tien xu ly anh nhu nao ? Ve bieu do ve phan phoi du lieu? CO tac dung gi de nang cao chat luong model
     face_preprocess = transforms.Compose(
         [
-            transforms.ToTensor(),
-            transforms.Resize((112, 112)),
-            transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]),
+            transforms.ToTensor(), # Chuyen du lieu ve kieu tensor => de tensorflow xu ly 
+            transforms.Resize((112, 112)), # Chuyen kich thuoc anh ve dang 112 * 112 ( anh sau khi cat mat)
+            transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5]), # Chuan hoa ve 1 dang xac suat 
         ]
     )
 
@@ -110,6 +111,7 @@ def add_persons(backup_dir, add_persons_dir, faces_save_dir, features_path):
                     cv2.imwrite(path_save_face, face_image)
 
                     # Extract features from the face
+                    # add vao
                     images_emb.append(get_feature(face_image=face_image))
                     images_name.append(name_person)
 

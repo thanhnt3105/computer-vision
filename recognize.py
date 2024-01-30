@@ -249,6 +249,8 @@ def tracking(detector, args):
 
 def recognize():
     """Face recognition in a separate thread."""
+    count = 0
+    total_time = 0
     while True:
         raw_image = data_mapping["raw_image"]
         detection_landmarks = data_mapping["detection_landmarks"]
@@ -258,7 +260,9 @@ def recognize():
 
         for i in range(len(tracking_bboxes)):
             for j in range(len(detection_bboxes)):
+                start_time = time.time()
                 mapping_score = mapping_bbox(box1=tracking_bboxes[i], box2=detection_bboxes[j])
+                # nhan dien xem la border box co dung la cua nguoi hien tai khong
                 if mapping_score > 0.9:
                     face_alignment = norm_crop(img=raw_image, landmark=detection_landmarks[j])
 
@@ -274,10 +278,20 @@ def recognize():
                     detection_bboxes = np.delete(detection_bboxes, j, axis=0)
                     detection_landmarks = np.delete(detection_landmarks, j, axis=0)
 
+                    if count < 20:
+                        count += 1
+                        end_time = time.time()
+                        elapsed_time = end_time - start_time
+                        print(f"Elapsed time for run {count}: {elapsed_time} seconds")
+                        total_time += elapsed_time
                     break
 
         if tracking_bboxes == []:
             print("Waiting for a person...")
+        if count == 20:
+            average_time = total_time / count
+            print(f"Average time for 20 runs: {average_time:.4f} seconds")
+            count+=1
 
 
 def main():
