@@ -9,7 +9,6 @@ from torchvision import transforms
 
 from face_alignment.alignment import norm_crop
 from face_detection.scrfd.detector import SCRFD
-from face_detection.yolov5_face.detector import Yolov5Face
 from face_recognition.arcface.model import iresnet_inference
 from face_recognition.arcface.utils import compare_encodings, read_features
 from face_tracking.tracker.byte_tracker import BYTETracker
@@ -268,7 +267,7 @@ def recognize():
 
                     score, name = recognition(face_image=face_alignment)
                     if name is not None:
-                        if score < 0.25:
+                        if score < 0.35:
                             caption = "UN_KNOWN"
                         else:
                             caption = f"{name}:{score:.2f}"
